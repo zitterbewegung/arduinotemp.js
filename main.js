@@ -1,24 +1,6 @@
-var influx = require('influx')
-
-var client = influx({
-
-  //cluster configuration
-  /*hosts : [
-    {
-      host : 'localhost',
-      port : 8086, //optional. default 8086
-      protocol : 'http' //optional. default 'http'
-    }
-  ],*/
-  // or single-host configuration
-  host : 'localhost',
-  port : 8086, // optional, default 8086
-  protocol : 'http', // optional, default 'http'
-  username : 'jherman',
-  password : 'arduinotemp',
-  database : 'arduinotemp.js'
-})
 var five = require("johnny-five");
+var StatsD = require('hot-shots'),
+    client = new StatsD({telegraf: true});
 
 var board = new five.Board();
 
@@ -48,9 +30,9 @@ board.on("ready", function() {
   multiplexer.select(6);
     this.io.analogRead(4, function(rawT) {
 	
-      console.log((rawT * 450 / 512 ) - 58);
-      //write a single point, providing a Date object. Precision is set to default 'ms' for milliseconds.
-	client.writePoint(info.series.name, {time: new Date(), value: ((rawT * 450 / 512 ) - 58) }, null,  done)
-
+	console.log((rawT * 450 / 512 ) - 58);
+	//var temp = ;
+	// Gauge: Gauge a stat by a specified amount
+	client.gauge('temperature', ((rawT * 450 / 512 ) - 58));
   });
 });
