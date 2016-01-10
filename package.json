@@ -1,0 +1,33 @@
+{
+  "name": "arduinotemp.js",
+  "version": "1.0.0",
+  "description": "A javascript program that records the current temperature on a Esplora and puts it to influxdb.",
+  "main": "main.js",
+  "dependencies": {
+    "hot-shots": "^2.2.0",
+    "johnny-five": "^0.9.17",
+    "node-statsd": "^0.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zitterbewegung/arduinotemp.js.git"
+  },
+  "keywords": [
+    "arduino",
+    "javascript",
+    "influxdb"
+  ],
+  "author": "Joshua Jay herman",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/zitterbewegung/arduinotemp.js/issues"
+  },
+    "homepage": "https://github.com/zitterbewegung/arduinotemp.js#readme",
+    "engine": {
+	"node": "v4.2.1"
+    }
+}
