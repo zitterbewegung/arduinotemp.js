@@ -1,7 +1,10 @@
 var five = require("johnny-five");
+//Create statsd and initialize for telegraf.
+//Using default settings for ports.
 var StatsD = require('hot-shots'),
     client = new StatsD({telegraf: true});
-
+//Below code from
+//https://github.com/rwaldron/johnny-five/issues/181
 var board = new five.Board();
 
 function Multiplexer(options) {
@@ -23,6 +26,8 @@ Multiplexer.prototype.select = function(channel) {
 };
 
 board.on("ready", function() {
+  //Set sampling interval to 1 second.
+  this.samplingInterval(1000);  
   var multiplexer = new Multiplexer({
     pins: [ 18, 19, 20, 21 ],
     io: this.io
@@ -32,7 +37,11 @@ board.on("ready", function() {
 	
 	console.log((rawT * 450 / 512 ) - 58);
 	//var temp = ;
-	// Gauge: Gauge a stat by a specified amount
+	// Gauge: Gauge a stat by a specified amount.
+	//Inserts temperature to telegraf as a gauge.
+	//Wait every second
 	client.gauge('temperature', ((rawT * 450 / 512 ) - 58));
+
+	
   });
 });
